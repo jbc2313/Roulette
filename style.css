@@ -1,0 +1,8 @@
+body {
+    background: darkgreen;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: none;
+};
