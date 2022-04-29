@@ -1,8 +1,55 @@
-body {
+body { 
+    display: grid;
+    grid-template-areas: 
+      "header header"
+      "nav article"
+      "nav ads"
+      "footer footer";
+    grid-template-rows: 80px 1fr 70px 70px;  
+    grid-template-columns: 20% 1fr;
+    grid-row-gap: 2px;
+    grid-column-gap: 2px;
+    height: 100vh;
+    margin: 0;
+}  
+ header, footer, article, nav, div {
+    padding: 1.2em;
     background: darkgreen;
 }
+#pageHeader {
+    grid-area: header;
+}
+#pageFooter {
+    grid-area: footer;
+}
+#mainArticle { 
+    grid-area: article;      
+}
+#mainNav { 
+    grid-area: nav; 
+}
+#siteAds { 
+    grid-area: ads; 
+} 
+#whl {
+  height: 300px;
+  width: 300px;
+}
+  
 
-.main {
-    display: grid;
-    grid-template-columns: none;
-};
+
+
+
+  /* Stack the layout on small devices/viewports. */
+  @media all and (max-width: 575px) {
+    body { 
+      grid-template-areas: 
+        "header"
+        "article"
+        "ads"
+        "nav"
+        "footer";
+      grid-template-rows: 80px 1fr 70px 1fr 70px;  
+      grid-template-columns: 1fr;
+   }
+  }
