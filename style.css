@@ -19,22 +19,39 @@ body {
 #pageHeader {
     grid-area: header;
 }
-#pageFooter {
+#gameMenu {
     grid-area: footer;
 }
-#mainArticle { 
+#mainGame { 
     grid-area: article;      
 }
-#mainNav { 
+#betsNav { 
     grid-area: nav; 
 }
-#siteAds { 
+#gameLog { 
     grid-area: ads; 
 } 
+
+
+
+
+
 #whl {
   height: 300px;
   width: 300px;
+  
 }
+.animate {
+  animation-name: rotate;
+  animation-duration: 5s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+@keyframes rotate{
+  from{ transform: rotate(-360deg);}
+  to{ transform: rotate(360deg);}
+}
+
   
 
 
