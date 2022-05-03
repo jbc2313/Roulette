@@ -12,6 +12,7 @@ let player = {
 
 
 
+let gamelogOut = document.getElementById('gameLog');
 
 
 
@@ -23,20 +24,28 @@ let wheelElement = document.getElementById('whl');
 
 let blackBet = document.getElementById('blackBet');
 let blackOn = false;
+let blackAmt = 0;
 let redBet = document.getElementById('redBet');
 let redOn = false;
+let redAmt = 0;
 let greenBet = document.getElementById('greenBet');
 let greenOn = false;
+let greenAmt = 0;
 let oddBet = document.getElementById('oddBet');
 let oddOn = false;
+let oddAmt = 0;
 let evenBet = document.getElementById('evenBet');
 let evenOn = false;
+let evenAmt = 0;
 let onetwelveBet = document.getElementById('onetwelveBet');
 let onetwelveOn = false;
+let onetwelveAmt = 0;
 let twotwelveBet = document.getElementById('onethreetwofourBet');
 let twotwelveOn = false;
+let twotwelveAmt = 0;
 let threetwelveBet = document.getElementById('twofivethreesixBet');
 let threetwelveOn = false;
+let threetwelveAmt = 0;
 
 
 //creates the arrays for the numbers and the colors
@@ -60,66 +69,124 @@ function playGame(){
     number = numbersArray[randomNum].toString();
 
 };
+//gets the amount the player wants on a specific bet
+function betAmt(){
+    let x = parseInt(prompt('How much are you going to bet?'));
+    
+    player.money -= x;
+    return x;
+};
+
+//pays the player if they hit on their bets
+function getWinings(num1, num2){
+    let y = num1 * num2;
+    let x = y + num1;
+    console.log(`you just won ${x} dollars`);
+    return x
+};
 
 function dealBets(){
     if(blackOn && color === 'black'){
-        
-    }
+        console.log('you hit on black!')
+        player.money += getWinings(blackAmt, 1);
+    };
+    if(redOn && color === 'red'){
+        console.log('you hit on red!')
+        player.money += getWinings(redAmt, 1);
+    };
+    if(greenOn && color === 'green'){
+        console.log('you just hit on green/0! WOW!!')
+        player.money += getWinings(greenAmt, 35);
+    };
+    if(oddOn && number % 2 != 0){
+        console.log('you just hit on odd!')
+        player.money += getWinings(oddAmt, 1);
+    };
+    if(evenOn && number % 2 == 0){
+        console.log('you just hit on even!')
+        player.money += getWinings(evenAmt, 1);
+    };
+    if(onetwelveOn && number >= 1){
+        if(number <= 12){
+            console.log('you just hit on 1-12!')
+            player.money += getWinings(onetwelveAmt, 2);
+        };
+    };
+    if(twotwelveOn && number >= 13){
+        if(number <= 24){
+            console.log('you just hit on 13-24!')
+            player.money += getWinings(twotwelveAmt, 2);
+        };
+    };
+    if(threetwelveOn && number >= 25){
+        if(number <= 36){
+            console.log('you just hit on 25-36!')
+            player.money += getWinings(threetwelveAmt, 2);
+        };
+    };
 }
 
 
 //adds event listeners for the bet buttons
 blackBet.addEventListener('click', () => {
-    console.log('youjustbeton black')
+    blackAmt = betAmt();
+    console.log(`you just bet ${blackAmt} on Black!`)
     if(blackOn === false){
         blackOn = true;
     };
 })
 
 redBet.addEventListener('click', () => {
-    console.log('youjustbeton red')
+    redAmt = betAmt();
+    console.log(`you just bet ${redAmt} on Red!`)
     if(redOn === false){
         redOn = true;
     };
 })
 
 greenBet.addEventListener('click', () => {
-    console.log('youjustbeton green')
+    greenAmt = betAmt();
+    console.log(`you just bet ${greenAmt} on Green/0! Good luck payout is 35 to 1!!`)
     if(greenOn === false){
         greenOn = true;
     };
 })
 
 oddBet.addEventListener('click', () => {
-    console.log('youjustbeton odd')
+    oddAmt = betAmt();
+    console.log(`you just bet ${oddAmt} on Odd!`)
     if(oddOn === false){
         oddOn = true;
     };
 })
 
 evenBet.addEventListener('click', () => {
-    console.log('youjustbeton even')
+    evenAmt = betAmt();
+    console.log(`you just bet ${evenAmt} on Even!`)
     if(evenOn === false){
         evenOn = true;
     };
 })
 
 onetwelveBet.addEventListener('click', () => {
-    console.log('youjustbeton 1 - 12')
+    onetwelveAmt = betAmt();
+    console.log(`you just bet ${onetwelveAmt} on 1 - 12!`)
     if(onetwelveOn === false){
         onetwelveOn = true;
     };
 })
 
 twotwelveBet.addEventListener('click', () => {
-    console.log('youjustbeton 13 - 24')
+    twotwelveAmt = betAmt();
+    console.log(`you just bet ${twotwelveAmt} on 13 - 24!`)
     if(twotwelveOn === false){
         twotwelveOn = true;
     };
 })
 
 threetwelveBet.addEventListener('click', () => {
-    console.log('youjustbeton 25 - 36')
+    threetwelveAmt = betAmt();
+    console.log(`you just bet ${threetwelveAmt} on 25 - 36!`)
     if(threetwelveOn === false){
         threetwelveOn = true;
     };
@@ -139,6 +206,8 @@ spinButton.addEventListener('click', () => {
 wheelElement.addEventListener('animationend', () => {
     wheelElement.classList.remove('animate');
     console.log(color + " " + number);
+    gamelogOut.innerHTML = (color + ' ' + number);
+    dealBets();
 });
 
 
