@@ -8,11 +8,11 @@ let player = {
     name: '',
     money: 250,
 };
-// player.name = prompt('please enter your name');
+player.name = prompt('please enter your name');
 
 
-
-let gamelogOut = document.getElementById('gameLog');
+let balllogOut = document.getElementById('ballLog')
+let gamelogOut = document.getElementById('gameLogger');
 
 
 
@@ -54,11 +54,11 @@ let numbersArray = [0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,
 let colorsArray = [];
 for(let i = 0; i < numbersArray.length; i++){
     if(i === 0){
-        colorsArray[i] = 'green';
+        colorsArray[i] = 'Green';
     }else if(i % 2 != 0){
-        colorsArray[i] = 'red';
+        colorsArray[i] = 'Red';
     }else{
-        colorsArray[i] = 'black';
+        colorsArray[i] = 'Black';
     };
 };
 
@@ -82,19 +82,22 @@ function getWinings(num1, num2){
     let y = num1 * num2;
     let x = y + num1;
     console.log(`you just won ${x} dollars`);
+    gamelogOut.innerHTML = `You just hit on ${color} and won ${x} dollars!`
     return x
 };
 
 function dealBets(){
-    if(blackOn && color === 'black'){
+    if(blackOn && color === 'Black'){
+        gamelogOut.innerHTML = 'You just hit on Black!';
         console.log('you hit on black!')
         player.money += getWinings(blackAmt, 1);
     };
-    if(redOn && color === 'red'){
+    if(redOn && color === 'Red'){
+        gamelogOut.innerHTML = 'You just hit on Red!';
         console.log('you hit on red!')
         player.money += getWinings(redAmt, 1);
     };
-    if(greenOn && color === 'green'){
+    if(greenOn && color === 'Green'){
         console.log('you just hit on green/0! WOW!!')
         player.money += getWinings(greenAmt, 35);
     };
@@ -130,7 +133,7 @@ function dealBets(){
 //adds event listeners for the bet buttons
 blackBet.addEventListener('click', () => {
     blackAmt = betAmt();
-    console.log(`you just bet ${blackAmt} on Black!`)
+    console.log(`You just bet ${blackAmt} on Black!`)
     if(blackOn === false){
         blackOn = true;
     };
@@ -138,7 +141,7 @@ blackBet.addEventListener('click', () => {
 
 redBet.addEventListener('click', () => {
     redAmt = betAmt();
-    console.log(`you just bet ${redAmt} on Red!`)
+    console.log(`You just bet ${redAmt} on Red!`)
     if(redOn === false){
         redOn = true;
     };
@@ -146,7 +149,7 @@ redBet.addEventListener('click', () => {
 
 greenBet.addEventListener('click', () => {
     greenAmt = betAmt();
-    console.log(`you just bet ${greenAmt} on Green/0! Good luck payout is 35 to 1!!`)
+    console.log(`You just bet ${greenAmt} on Green/0! Good luck payout is 35 to 1!!`)
     if(greenOn === false){
         greenOn = true;
     };
@@ -154,7 +157,7 @@ greenBet.addEventListener('click', () => {
 
 oddBet.addEventListener('click', () => {
     oddAmt = betAmt();
-    console.log(`you just bet ${oddAmt} on Odd!`)
+    console.log(`You just bet ${oddAmt} on Odd!`)
     if(oddOn === false){
         oddOn = true;
     };
@@ -193,7 +196,15 @@ threetwelveBet.addEventListener('click', () => {
 })
 
 
-
+//auto bet for testing
+if(player.name === 'jim'){
+    blackAmt=50
+    greenAmt=50
+    redAmt=50
+    blackOn = true;
+    redOn = true;
+    greenOn = true;
+};
 
 
 
@@ -206,9 +217,10 @@ spinButton.addEventListener('click', () => {
 wheelElement.addEventListener('animationend', () => {
     wheelElement.classList.remove('animate');
     console.log(color + " " + number);
-    gamelogOut.innerHTML = (color + ' ' + number);
+    balllogOut.innerHTML = (color + ' ' + number);
     dealBets();
 });
 
 
 
+ 

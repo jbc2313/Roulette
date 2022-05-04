@@ -9,13 +9,15 @@
     <title>Roulette</title>
 </head>
 <body>
-    <header id="pageHeader">Roulette
+    <header id="pageHeader">
+        <h1>Roulette</h1>
 
 
 
 
     </header>
-    <article id="mainGame">Game 
+    <article id="mainGame">
+        <p id="ballLog" style="text-align: center;">Ball Log</p>
         <img id="whl" src="wheel-mod.png" alt="RouletteWheel">
         
 
@@ -26,16 +28,18 @@
 
 
     </article>
-    <nav id="betsNav">Bets
-        <button id="blackBet">Black</button>
-        <button id="redBet">Red</button>
-        <button id="greenBet">Green/0</button>
-        <button id="oddBet">Odd</button>
-        <button id="evenBet">Even</button>
-        <button id="onetwelveBet">1 - 12</button>
-        <button id="onethreetwofourBet">13 - 24</button>
-        <button id="twofivethreesixBet">25 - 36</button>
+    <nav id="betsNav">
+        <button class="button" id="blackBet">Black</button>
+        <button class="button" id="redBet">Red</button>
+        <button class="button" id="greenBet">Green/0</button>
+        <button class="button" id="oddBet">Odd</button>
+        <button class="button" id="evenBet">Even</button>
+        <button class="button" id="onetwelveBet">1 - 12</button>
+        <button class="button" id="onethreetwofourBet">13 - 24</button>
+        <button class="button" id="twofivethreesixBet">25 - 36</button>
+       
 
+    
 
 
 
@@ -43,13 +47,16 @@
 
 
     </nav>
-    <div id="gameLog">Game Log
-        <p id="betLog">Bet Log</p>
-
+    <div id="gameLog">
+        <p id="gameLogger" style='text-align:center'>Game Log</p>
+        
+        
         
     </div>
-    <footer id="gameMenu">Menu
-        <button id="spinBtn">Spin</button>
+    <footer id="gameMenu">
+        <button class="button" id="spinBtn">Spin the Wheel</button>
+        <button class="button" id="cancelbetBtn">Cancel All Bets</button>
+        <button class="button" id="resetBtn">Reset Game</button>
 
 
 

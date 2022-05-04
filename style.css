@@ -32,13 +32,36 @@ body {
     grid-area: ads; 
 } 
 
+.button {
+  padding: 15px 25px;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #ff0000;
+  border: solid black 1px;
+  border-radius: 15px;
+  box-shadow: 0 9px rgb(0, 0, 0);
+}
 
+.button:hover {background-color: #080000}
 
-
+.button:active {
+  background-color: #353535;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+h1{
+  text-align: center;
+}
 
 #whl {
   height: 300px;
-  width: 300px;
+  width: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   
 }
 .animate {
