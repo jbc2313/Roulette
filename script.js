@@ -1,7 +1,8 @@
 console.log('helloworld');
 console.log('welcome to roulette, please enjoy!');
 
-let ball = '';
+//need to test with odd and even on as well
+
 let color = '';
 let number = '';
 let player = {
@@ -11,16 +12,23 @@ let player = {
 player.name = prompt('please enter your name');
 
 
+//outputs where the ball lands and if the player won any bets
 let balllogOut = document.getElementById('ballLog')
+// console.log(balllogOut);
 let gamelogOut = document.getElementById('gameLogger');
-
-
-
+// console.log(gamelogOut);
 let spinButton = document.getElementById('spinBtn');
 // console.log(spinButton);
-
 let wheelElement = document.getElementById('whl');
 // console.log(wheelElement);
+let resetButton = document.getElementById('resetBtn');
+// console.log(resetButton);
+let cancelButton = document.getElementById('cancelbetBtn');
+// console.log(cancelButton);
+let playerInfoText = document.getElementById('playerInfo');
+// console.log(playerInfoText)
+// playerInfoText.innerHTML = `${player.name}: $${player.money}`;
+playerInfoText.innerHTML = player.name + ': $' + player.money;
 
 let blackBet = document.getElementById('blackBet');
 let blackOn = false;
@@ -62,18 +70,81 @@ for(let i = 0; i < numbersArray.length; i++){
     };
 };
 
+//updates player money on screen
+function updateM(){
+    playerInfoText.innerHTML = player.name + ':  $' + player.money;
+}
+//resets the game
+function reset(){
+    player.name = prompt('Please enter your name.');
+    player.money = 250;
+    cancelBets();
+    resetBets();
+    updateM();
+};
+
+//returns money to players wallet ie.. if they cancel bets
+function returnBets(){
+    player.money += blackAmt;
+    player.money += redAmt;
+    player.money += greenAmt;
+    player.money += oddAmt;
+    player.money += evenAmt;
+    player.money += onetwelveAmt;
+    player.money += twotwelveAmt;
+    player.money += threetwelveAmt;
+};
+
+//cancels all active bets
+function cancelBets(){
+    blackOn = false;
+    blackBet.classList.remove('disabled');
+    redOn = false;
+    redBet.classList.remove('disabled');
+    greenOn = false;
+    greenBet.classList.remove('disabled');
+    oddOn = false;
+    oddBet.classList.remove('disabled');
+    evenOn = false;
+    evenBet.classList.remove('disabled');
+    onetwelveOn = false;
+    onetwelveBet.classList.remove('disabled');
+    twotwelveOn = false;
+    twotwelveBet.classList.remove('disabled');
+    threetwelveOn = false;
+    threetwelveBet.classList.remove('disabled');
+};
+
+//resets amount of money on each bet
+function resetBets(){
+    blackAmt = 0;
+    redAmt = 0;
+    greenAmt = 0;
+    oddAmt = 0;
+    evenAmt = 0;
+    onetwelveAmt = 0;
+    twotwelveAmt = 0;
+    threetwelveAmt = 0;
+}
+
+//collects for the "house" and resets bets 
+function houseCollect(){
+    resetBets();
+    cancelBets();
+    updateM();
+}
+
 // randomly selects the number the ball lands on 
 function playGame(){
     let randomNum = Math.floor(Math.random() * 37);
     color = colorsArray[randomNum].toString();
     number = numbersArray[randomNum].toString();
-
 };
 //gets the amount the player wants on a specific bet
 function betAmt(){
     let x = parseInt(prompt('How much are you going to bet?'));
-    
     player.money -= x;
+    updateM();
     return x;
 };
 
@@ -82,7 +153,7 @@ function getWinings(num1, num2){
     let y = num1 * num2;
     let x = y + num1;
     console.log(`you just won ${x} dollars`);
-    gamelogOut.innerHTML = `You just hit on ${color} and won ${x} dollars!`
+    gamelogOut.innerHTML = `You just won ${x} dollars!`
     return x
 };
 
@@ -129,6 +200,16 @@ function dealBets(){
     };
 }
 
+//adds event listener for cancel all bets button
+cancelButton.addEventListener('click', () => {
+    returnBets();
+    cancelBets();
+    resetBets();
+    updateM();
+});
+
+//adds event listener for the Reset button
+resetButton.addEventListener('click', reset);
 
 //adds event listeners for the bet buttons
 blackBet.addEventListener('click', () => {
@@ -136,6 +217,7 @@ blackBet.addEventListener('click', () => {
     console.log(`You just bet ${blackAmt} on Black!`)
     if(blackOn === false){
         blackOn = true;
+        blackBet.classList.add('disabled');
     };
 })
 
@@ -144,6 +226,7 @@ redBet.addEventListener('click', () => {
     console.log(`You just bet ${redAmt} on Red!`)
     if(redOn === false){
         redOn = true;
+        redBet.classList.add('disabled');
     };
 })
 
@@ -152,6 +235,7 @@ greenBet.addEventListener('click', () => {
     console.log(`You just bet ${greenAmt} on Green/0! Good luck payout is 35 to 1!!`)
     if(greenOn === false){
         greenOn = true;
+        greenBet.classList.add('disabled');
     };
 })
 
@@ -160,6 +244,7 @@ oddBet.addEventListener('click', () => {
     console.log(`You just bet ${oddAmt} on Odd!`)
     if(oddOn === false){
         oddOn = true;
+        oddBet.classList.add('disabled');
     };
 })
 
@@ -168,6 +253,7 @@ evenBet.addEventListener('click', () => {
     console.log(`you just bet ${evenAmt} on Even!`)
     if(evenOn === false){
         evenOn = true;
+        evenBet.classList.add('disabled');
     };
 })
 
@@ -176,6 +262,7 @@ onetwelveBet.addEventListener('click', () => {
     console.log(`you just bet ${onetwelveAmt} on 1 - 12!`)
     if(onetwelveOn === false){
         onetwelveOn = true;
+        onetwelveBet.classList.add('disabled');
     };
 })
 
@@ -184,6 +271,7 @@ twotwelveBet.addEventListener('click', () => {
     console.log(`you just bet ${twotwelveAmt} on 13 - 24!`)
     if(twotwelveOn === false){
         twotwelveOn = true;
+        twotwelveBet.classList.add('disabled');
     };
 })
 
@@ -192,8 +280,28 @@ threetwelveBet.addEventListener('click', () => {
     console.log(`you just bet ${threetwelveAmt} on 25 - 36!`)
     if(threetwelveOn === false){
         threetwelveOn = true;
+        threetwelveBet.classList.add('disabled');
     };
 })
+
+//animates the roulette wheel and pays out bets
+spinButton.addEventListener('click', () => {
+    console.log('you just clicked the spin button!');
+    wheelElement.classList.add('animate');
+    spinButton.classList.add('disabled');
+    playGame();
+});
+wheelElement.addEventListener('animationend', () => {
+    wheelElement.classList.remove('animate');
+    spinButton.classList.remove('disabled');
+    console.log(color + " " + number);
+    balllogOut.innerHTML = (color + ' ' + number);
+    dealBets();
+    houseCollect();
+});
+
+
+
 
 
 //auto bet for testing
@@ -206,20 +314,6 @@ if(player.name === 'jim'){
     greenOn = true;
 };
 
-
-
-//animates the roulette wheel and pays out bets
-spinButton.addEventListener('click', () => {
-    console.log('you just clicked the spin button!');
-    wheelElement.classList.add('animate');
-    playGame();
-});
-wheelElement.addEventListener('animationend', () => {
-    wheelElement.classList.remove('animate');
-    console.log(color + " " + number);
-    balllogOut.innerHTML = (color + ' ' + number);
-    dealBets();
-});
 
 
 

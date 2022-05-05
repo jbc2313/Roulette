@@ -5,15 +5,16 @@ body {
       "nav article"
       "nav ads"
       "footer footer";
-    grid-template-rows: 80px 1fr 70px 70px;  
+    grid-template-rows: 100px 1fr 100px 60px;  
     grid-template-columns: 20% 1fr;
-    grid-row-gap: 2px;
-    grid-column-gap: 2px;
+    grid-row-gap: 1px;
+    grid-column-gap: 1px;
     height: 100vh;
-    margin: 0;
+    margin: 2px;
+    background: black;
 }  
  header, footer, article, nav, div {
-    padding: 1.2em;
+    padding: .8rem;
     background: darkgreen;
 }
 #pageHeader {
@@ -31,9 +32,22 @@ body {
 #gameLog { 
     grid-area: ads; 
 } 
-
+#playerInfo {
+  text-transform: capitalize;
+  font-size: 20px;
+}
+#ballLog {
+  font-size: 38px;
+  text-decoration: underline;
+}
+#gameLogger {
+  font-size: 30px;
+}
 .button {
   padding: 15px 25px;
+  margin-bottom: 15px;
+  margin-right: 15px;
+  margin-left: 10px;
   font-size: 20px;
   text-align: center;
   cursor: pointer;
@@ -52,12 +66,28 @@ body {
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
+
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 h1{
   text-align: center;
+  font-size: 53px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+p {
+  font-size: larger;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.redball {
+  color: #ff0000;
 }
 
 #whl {
-  height: 300px;
+  height: 450px;
   width: auto;
   display: block;
   margin-left: auto;
@@ -81,15 +111,20 @@ h1{
 
 
   /* Stack the layout on small devices/viewports. */
-  @media all and (max-width: 575px) {
-    body { 
-      grid-template-areas: 
-        "header"
-        "article"
-        "ads"
-        "nav"
-        "footer";
-      grid-template-rows: 80px 1fr 70px 1fr 70px;  
-      grid-template-columns: 1fr;
-   }
+@media all and (max-width: 575px) {
+  body { 
+    grid-template-areas: 
+       "header"
+       "article"
+       "ads"
+       "nav"
+       "footer";
+    grid-template-rows: 100px 1fr 100px 1fr 60px;  
+    grid-template-columns: 1fr;
   }
+}
+
+
+
+
+  
