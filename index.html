@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="script.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <script defer src="/Scripts/script.js"></script>
+    <link rel="stylesheet" href="/Styles/style.css">
     <title>Roulette</title>
 </head>
 <body>
     <header id="pageHeader">
-        <h1>Roulette</h1>
+        <span id="title">Roulette</span>
 
 
 
 
     </header>
     <article id="mainGame">
-        <p id="ballLog" style="text-align: center;">Ball Log</p>
-        <img id="whl" src="wheel-mod.png" alt="RouletteWheel">
+        <p id="ballLog" style="text-align: center;"></p>
+        <img id="whl" src="/Assets/wheel-mod.png" alt="RouletteWheel">
         
 
 
@@ -42,9 +42,8 @@
 
     </nav>
     <div id="gameLog">
-        <p id="gameLogger" style='text-align:center'>Game Log</p>
-        
-        
+    
+        <p id="gameLogger" style='text-align:center'></p>
         
     </div>
     <footer id="gameMenu">
@@ -52,7 +51,7 @@
         <button class="button" id="spinBtn">Spin the Wheel</button>
         <button class="button" id="cancelbetBtn">Cancel All Bets</button>
         <button class="button" id="resetBtn">Reset Game</button>
-
+        <audio id="sound" src="/Assets/roulette.mp3"></audio>
 
 
     </footer>    

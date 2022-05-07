@@ -12,6 +12,7 @@ let player = {
 player.name = prompt('please enter your name');
 
 
+
 //outputs where the ball lands and if the player won any bets
 let balllogOut = document.getElementById('ballLog')
 // console.log(balllogOut);
@@ -27,8 +28,12 @@ let cancelButton = document.getElementById('cancelbetBtn');
 // console.log(cancelButton);
 let playerInfoText = document.getElementById('playerInfo');
 // console.log(playerInfoText)
-// playerInfoText.innerHTML = `${player.name}: $${player.money}`;
+let rouletteAudio = document.getElementById('sound');
+
+
 playerInfoText.innerHTML = player.name + ': $' + player.money;
+
+
 
 let blackBet = document.getElementById('blackBet');
 let blackOn = false;
@@ -142,63 +147,107 @@ function playGame(){
 };
 //gets the amount the player wants on a specific bet
 function betAmt(){
+    if(player.money <= 0){
+        alert('You dont have any money to bet..');
+        return;
+    }
     let x = parseInt(prompt('How much are you going to bet?'));
+    
     player.money -= x;
     updateM();
     return x;
 };
 
 //pays the player if they hit on their bets
-function getWinings(num1, num2){
+function getWinings(num1, num2, string, x){
     let y = num1 * num2;
-    let x = y + num1;
-    console.log(`you just won ${x} dollars`);
-    gamelogOut.innerHTML = `You just won ${x} dollars!`
-    return x
+    let z = y + num1;
+    if(string === 'black'){
+        gamelogOut.innerHTML = `You Bet on Black and Won $${z}!`;
+    }
+    else if(string ==='red'){
+        gamelogOut.innerHTML = `You Bet on Red and Won $${z}!`;
+    }else if(string ==='green'){
+        gamelogOut.innerHTML = `You Bet on Green and Won $${z}!`;
+    }else if(string ==='odd'){
+        if(x>1){
+            gamelogOut.append(` Your bet on Odd Won $${z}`);
+        }else{
+            gamelogOut.innerHTML = `You Bet on Odd and Won $${z}!`;
+        };
+    }else if(string ==='even'){
+        if(x>1){
+            gamelogOut.append(` Your bet on Even Won $${z}`);
+        }else{
+            gamelogOut.innerHTML = `You Bet on Even and Won $${z}!`;
+        };
+    }else if(string ==='onetwelve'){
+        if(x>1){
+            gamelogOut.append(` Your bet on 1-12 Won $${z}!`);
+        }else{
+            gamelogOut.innerHTML = `You Bet on 1-12 and Won $${z}!`;
+        };
+    }else if(string ==='twotwelve'){
+        if(x>1){
+            gamelogOut.append(` Your bet on 13-24 Won $${z}!`);
+        }else{
+            gamelogOut.innerHTML = `You Bet on 13-24 and Won $${z}!`;
+        };
+    }else if(string ==='threetwelve'){
+        if(x>1){
+            gamelogOut.append(` Your bet on 25-36 Won $${z}!`);
+        }else{
+            gamelogOut.innerHTML = `You Bet on 25-36 and Won $${z}!`;
+        };
+    };
+    
+    return z
 };
 
+
 function dealBets(){
+    let x = 0;
     if(blackOn && color === 'Black'){
-        gamelogOut.innerHTML = 'You just hit on Black!';
-        console.log('you hit on black!')
-        player.money += getWinings(blackAmt, 1);
+        x++
+        player.money += getWinings(blackAmt, 1, 'black', x);
     };
     if(redOn && color === 'Red'){
-        gamelogOut.innerHTML = 'You just hit on Red!';
-        console.log('you hit on red!')
-        player.money += getWinings(redAmt, 1);
+        x++
+        player.money += getWinings(redAmt, 1, 'red', x);
     };
     if(greenOn && color === 'Green'){
-        console.log('you just hit on green/0! WOW!!')
-        player.money += getWinings(greenAmt, 35);
+        x++
+        player.money += getWinings(greenAmt, 35, 'green', x);
     };
     if(oddOn && number % 2 != 0){
-        console.log('you just hit on odd!')
-        player.money += getWinings(oddAmt, 1);
+        x++
+        player.money += getWinings(oddAmt, 1, 'odd', x);
     };
     if(evenOn && number % 2 == 0){
-        console.log('you just hit on even!')
-        player.money += getWinings(evenAmt, 1);
+        x++
+        player.money += getWinings(evenAmt, 1, 'even', x);
     };
     if(onetwelveOn && number >= 1){
+        
         if(number <= 12){
-            console.log('you just hit on 1-12!')
-            player.money += getWinings(onetwelveAmt, 2);
+            x++
+            player.money += getWinings(onetwelveAmt, 2, 'onetwelve', x);
         };
     };
     if(twotwelveOn && number >= 13){
         if(number <= 24){
-            console.log('you just hit on 13-24!')
-            player.money += getWinings(twotwelveAmt, 2);
+            x++
+            player.money += getWinings(twotwelveAmt, 2, 'twotwelve', x);
         };
     };
     if(threetwelveOn && number >= 25){
         if(number <= 36){
-            console.log('you just hit on 25-36!')
-            player.money += getWinings(threetwelveAmt, 2);
+            x++
+            player.money += getWinings(threetwelveAmt, 2, 'threetwelve', x);
         };
     };
-}
+   
+};
 
 //adds event listener for cancel all bets button
 cancelButton.addEventListener('click', () => {
@@ -214,7 +263,6 @@ resetButton.addEventListener('click', reset);
 //adds event listeners for the bet buttons
 blackBet.addEventListener('click', () => {
     blackAmt = betAmt();
-    console.log(`You just bet ${blackAmt} on Black!`)
     if(blackOn === false){
         blackOn = true;
         blackBet.classList.add('disabled');
@@ -223,7 +271,6 @@ blackBet.addEventListener('click', () => {
 
 redBet.addEventListener('click', () => {
     redAmt = betAmt();
-    console.log(`You just bet ${redAmt} on Red!`)
     if(redOn === false){
         redOn = true;
         redBet.classList.add('disabled');
@@ -232,7 +279,6 @@ redBet.addEventListener('click', () => {
 
 greenBet.addEventListener('click', () => {
     greenAmt = betAmt();
-    console.log(`You just bet ${greenAmt} on Green/0! Good luck payout is 35 to 1!!`)
     if(greenOn === false){
         greenOn = true;
         greenBet.classList.add('disabled');
@@ -241,7 +287,6 @@ greenBet.addEventListener('click', () => {
 
 oddBet.addEventListener('click', () => {
     oddAmt = betAmt();
-    console.log(`You just bet ${oddAmt} on Odd!`)
     if(oddOn === false){
         oddOn = true;
         oddBet.classList.add('disabled');
@@ -250,7 +295,6 @@ oddBet.addEventListener('click', () => {
 
 evenBet.addEventListener('click', () => {
     evenAmt = betAmt();
-    console.log(`you just bet ${evenAmt} on Even!`)
     if(evenOn === false){
         evenOn = true;
         evenBet.classList.add('disabled');
@@ -259,7 +303,6 @@ evenBet.addEventListener('click', () => {
 
 onetwelveBet.addEventListener('click', () => {
     onetwelveAmt = betAmt();
-    console.log(`you just bet ${onetwelveAmt} on 1 - 12!`)
     if(onetwelveOn === false){
         onetwelveOn = true;
         onetwelveBet.classList.add('disabled');
@@ -268,7 +311,6 @@ onetwelveBet.addEventListener('click', () => {
 
 twotwelveBet.addEventListener('click', () => {
     twotwelveAmt = betAmt();
-    console.log(`you just bet ${twotwelveAmt} on 13 - 24!`)
     if(twotwelveOn === false){
         twotwelveOn = true;
         twotwelveBet.classList.add('disabled');
@@ -277,7 +319,6 @@ twotwelveBet.addEventListener('click', () => {
 
 threetwelveBet.addEventListener('click', () => {
     threetwelveAmt = betAmt();
-    console.log(`you just bet ${threetwelveAmt} on 25 - 36!`)
     if(threetwelveOn === false){
         threetwelveOn = true;
         threetwelveBet.classList.add('disabled');
@@ -286,7 +327,7 @@ threetwelveBet.addEventListener('click', () => {
 
 //animates the roulette wheel and pays out bets
 spinButton.addEventListener('click', () => {
-    console.log('you just clicked the spin button!');
+    rouletteAudio.play();
     wheelElement.classList.add('animate');
     spinButton.classList.add('disabled');
     playGame();
@@ -294,27 +335,9 @@ spinButton.addEventListener('click', () => {
 wheelElement.addEventListener('animationend', () => {
     wheelElement.classList.remove('animate');
     spinButton.classList.remove('disabled');
-    console.log(color + " " + number);
     balllogOut.innerHTML = (color + ' ' + number);
     dealBets();
     houseCollect();
+    
 });
 
-
-
-
-
-//auto bet for testing
-if(player.name === 'jim'){
-    blackAmt=50
-    greenAmt=50
-    redAmt=50
-    blackOn = true;
-    redOn = true;
-    greenOn = true;
-};
-
-
-
-
- 
