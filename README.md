@@ -1,7 +1,8 @@
 
 # Roulette
 
-![Screen Shot 2022-05-06 at 10 20 43 PM](https://user-images.githubusercontent.com/101614021/167236137-94d7feab-a25b-466e-a0a6-ade771d1241b.png)
+![Screen Shot 2022-05-06 at 10 40 56 PM](https://user-images.githubusercontent.com/101614021/167236755-cf3f2068-e6cb-4c3a-bb85-667642b6dd57.png)
+
 
 # Technologies Used
 
@@ -19,10 +20,10 @@
 
 # User Stories
 
->  As a user I want to be able to see how much money I have.
->  As a user I want a button to reset the game if i need to.
->  As a user I want to be able to select different bets.
->  As a user I want to be able to cancel bets if i make the wrong selection.
+>  1. As a user I want to be able to see how much money I have.
+>  2. As a user I want a button to reset the game if i need to.
+>  3. As a user I want to be able to select different bets.
+>  4. As a user I want to be able to cancel bets if i make the wrong selection.
 
 # Wireframe
 
