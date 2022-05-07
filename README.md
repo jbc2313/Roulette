@@ -1,6 +1,6 @@
 # Roulette
 
-![Screen Shot 2022-05-06 at 10 40 56 PM](https://user-images.githubusercontent.com/101614021/167236755-cf3f2068-e6cb-4c3a-bb85-667642b6dd57.png)
+![Screen Shot 2022-05-06 at 11 54 05 PM](https://user-images.githubusercontent.com/101614021/167238962-0081d8a1-33ca-4f40-b785-13111556807d.png)
 
 
 # Technologies Used
